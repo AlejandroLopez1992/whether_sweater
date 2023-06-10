@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe MapquestService do
-  context "class methods", :vcr do
+  context "instance methods", :vcr do
     it "location method returns latitude and longitude data" do
       search = MapquestService.new("Denver,CO").location
       expect(search).to be_a Hash
