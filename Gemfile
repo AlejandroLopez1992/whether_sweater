@@ -46,6 +46,9 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webmock'
   gem 'simplecov', require: false, group: :test
+  gem 'vcr'
+  gem 'faker'
+  gem 'factory_bot_rails'
 end
 
 group :development do
