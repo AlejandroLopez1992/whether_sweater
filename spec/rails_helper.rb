@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -66,4 +68,14 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
+  config.default_cassette_options = { allow_playback_repeats: true }
+  config.default_cassette_options = { re_record_interval: 7.days }
+  config.filter_sensitive_data('MAPQUEST_API_KEY') { ENV['MAPQUEST_API_KEY'] }
+  config.filter_sensitive_data('WEATHER_API_KEY') { ENV['WEATHER_API_KEY'] }
+  config.configure_rspec_metadata!
 end
