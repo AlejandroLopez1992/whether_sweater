@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 11 Jun 2023 22:11:01 GMT
+      - Sun, 11 Jun 2023 22:11:02 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -51,9 +51,9 @@ http_interactions:
       Cdn-Status:
       - '200'
       Cdn-Requestid:
-      - a7187d495661ce095119c1dbc7372d27
+      - abb7761bb7e04e81d78a1764d026c61c
       Cdn-Cache:
-      - MISS
+      - HIT
     body:
       encoding: ASCII-8BIT
       string: '{"location":{"name":"Denver","region":"Colorado","country":"United

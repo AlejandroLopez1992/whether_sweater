@@ -37,5 +37,44 @@ RSpec.describe Forecast do
       expect(forecast.current_weather).to have_key :condition
       expect(forecast.current_weather).to have_key :icon
     end
+
+    it "organize_daily_weather method fills in daily_weather array with 5 day hashes with attributes" do
+      attrs = WeatherapiService.new("39.74001,-104.99202", 5).forecast
+      forecast = Forecast.new
+  
+      expect(forecast.daily_weather.count).to eq(0)
+
+      forecast.organize_daily_weather(attrs)
+
+      expect(forecast.daily_weather.count).to eq(5)
+
+      forecast.daily_weather.each do |day|
+        expect(day).to have_key :date
+        expect(day).to have_key :sunrise
+        expect(day).to have_key :sunset
+        expect(day).to have_key :max_temp
+        expect(day).to have_key :min_temp
+        expect(day).to have_key :condition
+        expect(day).to have_key :icon
+      end
+    end
+
+    it "organize_hourly_weather method fills in hourly_weather array with 24 hour hashes with attributes" do
+      attrs = WeatherapiService.new("39.74001,-104.99202", 5).forecast
+      forecast = Forecast.new
+  
+      expect(forecast.hourly_weather.count).to eq(0)
+
+      forecast.organize_hourly_weather(attrs)
+
+      expect(forecast.hourly_weather.count).to eq(24)
+
+      forecast.hourly_weather.each do |hour|
+        expect(hour).to have_key :time
+        expect(hour).to have_key :temperature
+        expect(hour).to have_key :condition
+        expect(hour).to have_key :icon
+      end
+    end
   end
 end

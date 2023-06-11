@@ -18,4 +18,29 @@ class Forecast
     @current_weather[:condition] = weather_data[:current][:condition][:text]
     @current_weather[:icon] = weather_data[:current][:condition][:icon]
   end
+
+  def organize_daily_weather(weather_data)
+    weather_data[:forecast][:forecastday].each do |day|
+      day_hash = Hash.new
+      day_hash[:date] = day[:date]
+      day_hash[:sunrise] = day[:astro][:sunrise]
+      day_hash[:sunset] = day[:astro][:sunset]
+      day_hash[:max_temp] = day[:day][:maxtemp_f]
+      day_hash[:min_temp] = day[:day][:mintemp_f]
+      day_hash[:condition] = day[:day][:condition][:text]
+      day_hash[:icon] = day[:day][:condition][:icon]
+      @daily_weather.push(day_hash)
+    end
+  end
+
+  def organize_hourly_weather(weather_data)
+    weather_data[:forecast][:forecastday].first[:hour].each do |hour|
+      hour_hash = Hash.new
+      hour_hash[:time] = hour[:time]
+      hour_hash[:temperature] = hour[:temp_f]
+      hour_hash[:condition] = hour[:condition][:text]
+      hour_hash[:icon] = hour[:condition][:icon]
+      @hourly_weather.push(hour_hash)
+    end
+  end
 end
