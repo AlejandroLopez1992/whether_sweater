@@ -16,6 +16,10 @@ class ForecastFacade
 
   def call_weather_api(location, days)
     response = WeatherapiService.new(location, days).forecast
-    require 'pry'; binding.pry
+    create_forecast(response)
+  end
+
+  def create_forecast(weather_data)
+    
   end
 end

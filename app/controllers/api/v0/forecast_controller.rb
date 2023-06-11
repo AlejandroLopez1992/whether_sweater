@@ -1,13 +1,7 @@
 class Api::V0::ForecastController < ApplicationController
-  before_action :initialize_facade
 
   def show
-    render json: WeatherObjectSerialize.new
+    forecast = ForecastFacade.new(params[:location]).call_mapquest
+    render json: ForecastSerializer.new(forecast).serializable_hash.to_json
   end
-
-  private
-
-    def initialize_facade
-      @facade = ForecastFacade.new(params[:location]).call_mapquest
-    end
 end
