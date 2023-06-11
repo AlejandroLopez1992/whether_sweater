@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe WeatherapiService do
   context "instance methods", :vcr do
-    it "forecast method returns weather forcast data" do
+    it "forecast method returns weather forecast data" do
       search = WeatherapiService.new("39.74001,-104.99202", "5").forecast
       expect(search).to be_a Hash
 
@@ -37,11 +37,11 @@ RSpec.describe WeatherapiService do
       expect(current_weather_data).to have_key :condition
       expect(current_weather_data[:condition]).to be_an Hash
 
-      expect(current_weather_data[:condtition]).to have_key :text
-      expect(current_weather_data[:condtition][:text]).to be_an String 
+      expect(current_weather_data[:condition]).to have_key :text
+      expect(current_weather_data[:condition][:text]).to be_an String 
 
-      expect(current_weather_data[:condtition]).to have_key :icon
-      expect(current_weather_data[:condtition][:icon]).to be_an String 
+      expect(current_weather_data[:condition]).to have_key :icon
+      expect(current_weather_data[:condition][:icon]).to be_an String 
 
       expect(search).to have_key :forecast
       expect(search[:forecast]).to be_an Hash 
@@ -73,7 +73,7 @@ RSpec.describe WeatherapiService do
       expect(first_day_weather_data[:day][:mintemp_f]).to be_an Float 
 
       expect(first_day_weather_data[:day]).to have_key :condition
-      expect(first_day_weather_data[:day][:condtition]).to be_an Hash 
+      expect(first_day_weather_data[:day][:condition]).to be_an Hash 
 
       expect(first_day_weather_data[:day][:condition]).to have_key :text
       expect(first_day_weather_data[:day][:condition][:text]).to be_an String 
