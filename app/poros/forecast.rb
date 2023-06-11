@@ -32,4 +32,15 @@ class Forecast
       @daily_weather.push(day_hash)
     end
   end
+
+  def organize_hourly_weather(weather_data)
+    weather_data[:forecast][:forecastday].first[:hour].each do |hour|
+      hour_hash = Hash.new
+      hour_hash[:time] = hour[:time]
+      hour_hash[:temperature] = hour[:temp_f]
+      hour_hash[:condition] = hour[:condition][:text]
+      hour_hash[:icon] = hour[:condition][:icon]
+      @hourly_weather.push(hour_hash)
+    end
+  end
 end
