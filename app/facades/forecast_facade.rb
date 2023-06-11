@@ -20,6 +20,10 @@ class ForecastFacade
   end
 
   def create_forecast(weather_data)
-    
+    forecast = Forecast.new
+    forecast.organize_current_weather(weather_data)
+    forecast.organize_daily_weather(weather_data)
+    forecast.organize_hourly_weather(weather_data)
+    forecast
   end
 end
