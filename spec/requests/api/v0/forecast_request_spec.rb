@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Forecast API" do
-  describe "GET /api/v0/forecast?location=city,state" do
+  describe "GET /api/v0/forecast?location=city,state", :vcr do
     it "provides weather data with 5 days of forcast" do
 
       get "/api/v0/forecast?location=Denver,CO"
