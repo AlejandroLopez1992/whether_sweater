@@ -196,5 +196,25 @@ describe "Forecast API" do
          expect(hour).to_not have_key :uv
       end
     end
+
+    it 'if location params are not passed in a error responce is sent with error code 400' do
+     
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      get "/api/v0/forecast", headers: headers
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(400)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message).to eq({
+        errors: [
+          {
+            detail: "Request must contain location parameters. Example: location=Denver,CO",
+          }
+        ]})
+    end
   end
 end
