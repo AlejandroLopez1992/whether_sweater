@@ -13,4 +13,14 @@ class Books
     @forecast[:summary] = weather_data[:current][:condition][:text]
     @forecast[:temperature] = weather_data[:current][:temp_f].to_s + " F"
   end
+
+  def organize_books(books_data)
+    books_data[:docs].each do |book|
+      book_hash = Hash.new
+      book_hash[:isbn] = book[:isbn]
+      book_hash[:title] = book[:title]
+      book_hash[:publisher] = book[:publisher]
+      @books.push(book_hash)
+    end
+  end
 end
