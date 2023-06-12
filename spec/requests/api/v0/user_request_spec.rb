@@ -7,14 +7,14 @@ describe "User API" do
       headers = {"CONTENT_TYPE" => "application/json"}
 
       body = {
-        "email": "scoobydoo@yahoo.com"
+        "email": "scoobydoo@yahoo.com",
         "password": "password",
         "password_confirmation": "password"
       }.to_json
 
       expect(User.all.count).to eq(0)
 
-      get "/api/v0/users", headers: headers, body: body
+      post "/api/v0/users", headers: headers, params: body
 
       expect(response).to be_successful
 
@@ -23,9 +23,9 @@ describe "User API" do
       expect(User.all.count).to eq(1)
 
       user = User.find_by(email: "scoobydoo@yahoo.com")
-
+      
       expect(user.email).to eq("scoobydoo@yahoo.com")
-      expect(user.password).to_not eq(nil)
+      expect(user.password_digest).to_not eq(nil)
       expect(user.api_key).to_not eq(nil)
     
       created_user_response = JSON.parse(response.body, symbolize_names: true)
@@ -34,7 +34,7 @@ describe "User API" do
       expect(created_user_response[:data]).to be_an Hash 
 
       expect(created_user_response[:data]).to have_key(:type)
-      expect(created_user_response[:data][:type]).to eq("users")
+      expect(created_user_response[:data][:type]).to eq("user")
 
       expect(created_user_response[:data]).to have_key(:id)
       expect(created_user_response[:data][:id]).to be_an String
@@ -50,6 +50,10 @@ describe "User API" do
 
       expect(created_user_response[:data][:attributes]).to_not have_key(:password)
       expect(created_user_response[:data][:attributes]).to_not have_key(:password_digest)
+    end
+
+    it 'if user email input is already taken, error message is sent' do
+      
     end
   end
 end
