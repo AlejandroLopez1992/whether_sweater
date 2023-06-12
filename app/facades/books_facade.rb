@@ -22,6 +22,9 @@ class BooksFacade
 
   def create_books_data(forecast)
     response = OpenlibraryService.new(@location, @quantity).search
-    require 'pry'; binding.pry
+    books = Books.new(@location, response[:numFound])
+    books.organize_forecast(forecast)
+    books.organize_books(response)
+    books
   end
 end

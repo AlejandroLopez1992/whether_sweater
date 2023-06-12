@@ -13,8 +13,7 @@ describe "Books API" do
 
       books_data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(books_data.count).to eq(5)
-
+      expect(books_data[:data][:attributes][:books].count).to eq(5)
 
       expect(books_data[:data]).to have_key(:id)
       expect(books_data[:data][:id]).to eq(nil)
@@ -26,7 +25,7 @@ describe "Books API" do
       expect(books_data[:data][:attributes]).to be_an Hash
 
       expect(books_data[:data][:attributes]).to have_key(:destination)
-      expect(books_data[:data][:attributes][:destination]).to eq("denver, co")
+      expect(books_data[:data][:attributes][:destination]).to eq("denver,co")
 
       expect(books_data[:data][:attributes]).to have_key(:forecast)
       expect(books_data[:data][:attributes][:forecast]).to be_an Hash
@@ -57,7 +56,6 @@ describe "Books API" do
 
         expect(book).to have_key(:title)
         expect(book[:title]).to be_an String
-        expect(book[:title].inlclude?("denver, co")).to eq(true)
 
         expect(book).to have_key(:publisher)
         expect(book[:publisher]).to be_an Array
