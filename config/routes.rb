@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :api do
+    namespace :v1 do
+      get "/book-search", to: "books_search#show"
+    end
     namespace :v0 do
       get "/forecast", to: 'forecast#show'
+      resources :users, only: %i[create]
     end
   end
 end

@@ -1,0 +1,350 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://openlibrary.org/search.json?limit=5&title=denver,%20co
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.7.6
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0 (Ubuntu)
+      Date:
+      - Mon, 12 Jun 2023 16:46:07 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Method:
+      - GET, OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+      X-Ol-Stats:
+      - '"SR 1 0.050 TT 0 0.051"'
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+            "numFound": 45,
+            "start": 0,
+            "numFoundExact": true,
+            "docs": [
+                {
+                    "key": "/works/OL8503198W",
+                    "type": "work",
+                    "seed": [
+                        "/books/OL10909613M",
+                        "/works/OL8503198W",
+                        "/authors/OL2843451A"
+                    ],
+                    "title": "Denver, Co",
+                    "title_suggest": "Denver, Co",
+                    "title_sort": "Denver, Co",
+                    "edition_count": 1,
+                    "edition_key": [
+                        "OL10909613M"
+                    ],
+                    "publish_date": [
+                        "January 2001"
+                    ],
+                    "publish_year": [
+                        2001
+                    ],
+                    "first_publish_year": 2001,
+                    "isbn": [
+                        "0762507845",
+                        "9780762507849"
+                    ],
+                    "last_modified_i": 1338943517,
+                    "ebook_count_i": 0,
+                    "ebook_access": "no_ebook",
+                    "has_fulltext": false,
+                    "public_scan_b": false,
+                    "publisher": [
+                        "Universal Map Enterprises"
+                    ],
+                    "language": [
+                        "eng"
+                    ],
+                    "author_key": [
+                        "OL2843451A"
+                    ],
+                    "author_name": [
+                        "Universal Map"
+                    ],
+                    "publisher_facet": [
+                        "Universal Map Enterprises"
+                    ],
+                    "_version_": 1759801544632434690,
+                    "author_facet": [
+                        "OL2843451A Universal Map"
+                    ]
+                },
+                {
+                    "key": "/works/OL896607W",
+                    "type": "work",
+                    "seed": [
+                        "/books/OL10945157M",
+                        "/works/OL896607W",
+                        "/authors/OL79165A"
+                    ],
+                    "title": "Denver west, CO and Bailey, CO: Denver, CO",
+                    "title_suggest": "Denver west, CO and Bailey, CO: Denver, CO",
+                    "title_sort": "Denver west, CO and Bailey, CO: Denver, CO",
+                    "subtitle": "39105, digital raster graphic data",
+                    "edition_count": 1,
+                    "edition_key": [
+                        "OL10945157M"
+                    ],
+                    "publish_date": [
+                        "1996"
+                    ],
+                    "publish_year": [
+                        1996
+                    ],
+                    "first_publish_year": 1996,
+                    "isbn": [
+                        "0607620056",
+                        "9780607620054"
+                    ],
+                    "last_modified_i": 1272517172,
+                    "ebook_count_i": 0,
+                    "ebook_access": "no_ebook",
+                    "has_fulltext": false,
+                    "public_scan_b": false,
+                    "publisher": [
+                        "USGS Branch of Distribution"
+                    ],
+                    "language": [
+                        "eng"
+                    ],
+                    "author_key": [
+                        "OL79165A"
+                    ],
+                    "author_name": [
+                        "United States Geological Survey"
+                    ],
+                    "author_alternative_name": [
+                        "Geological Survey (U .S.)",
+                        "Geological Survey. (U.S.)",
+                        "Geological Survey (U.S.) 088",
+                        "United States. Geological Survey",
+                        "United States. Geological Survey.",
+                        "U.S. Geological Survey",
+                        "Geological Survey (U.S.)",
+                        "United States. Geological survey.",
+                        "Geological Survey (U. S.)"
+                    ],
+                    "publisher_facet": [
+                        "USGS Branch of Distribution"
+                    ],
+                    "_version_": 1759802487286530049,
+                    "author_facet": [
+                        "OL79165A United States Geological Survey"
+                    ]
+                },
+                {
+                    "key": "/works/OL896605W",
+                    "type": "work",
+                    "seed": [
+                        "/books/OL10945156M",
+                        "/works/OL896605W",
+                        "/authors/OL79165A"
+                    ],
+                    "title": "Denver East, CO and Castle Rock, CO: Denver, CO",
+                    "title_suggest": "Denver East, CO and Castle Rock, CO: Denver, CO",
+                    "title_sort": "Denver East, CO and Castle Rock, CO: Denver, CO",
+                    "subtitle": "39104, digital raster graphic data",
+                    "edition_count": 1,
+                    "edition_key": [
+                        "OL10945156M"
+                    ],
+                    "publish_date": [
+                        "1996"
+                    ],
+                    "publish_year": [
+                        1996
+                    ],
+                    "first_publish_year": 1996,
+                    "isbn": [
+                        "9780607620047",
+                        "0607620048"
+                    ],
+                    "last_modified_i": 1272517172,
+                    "ebook_count_i": 0,
+                    "ebook_access": "no_ebook",
+                    "has_fulltext": false,
+                    "public_scan_b": false,
+                    "publisher": [
+                        "USGS Branch of Distribution"
+                    ],
+                    "language": [
+                        "eng"
+                    ],
+                    "author_key": [
+                        "OL79165A"
+                    ],
+                    "author_name": [
+                        "United States Geological Survey"
+                    ],
+                    "author_alternative_name": [
+                        "Geological Survey (U .S.)",
+                        "Geological Survey. (U.S.)",
+                        "Geological Survey (U.S.) 088",
+                        "United States. Geological Survey",
+                        "United States. Geological Survey.",
+                        "U.S. Geological Survey",
+                        "Geological Survey (U.S.)",
+                        "United States. Geological survey.",
+                        "Geological Survey (U. S.)"
+                    ],
+                    "publisher_facet": [
+                        "USGS Branch of Distribution"
+                    ],
+                    "_version_": 1759802487500439552,
+                    "author_facet": [
+                        "OL79165A United States Geological Survey"
+                    ]
+                },
+                {
+                    "key": "/works/OL31554740W",
+                    "type": "work",
+                    "seed": [
+                        "/books/OL7772425M",
+                        "/works/OL31554740W"
+                    ],
+                    "title": "Denver Regional, CO",
+                    "title_suggest": "Denver Regional, CO",
+                    "title_sort": "Denver Regional, CO",
+                    "edition_count": 1,
+                    "edition_key": [
+                        "OL7772425M"
+                    ],
+                    "publish_date": [
+                        "June 1994"
+                    ],
+                    "publish_year": [
+                        1994
+                    ],
+                    "first_publish_year": 1994,
+                    "isbn": [
+                        "9780528952715",
+                        "0528952714"
+                    ],
+                    "last_modified_i": 1670927738,
+                    "ebook_count_i": 1,
+                    "ebook_access": "borrowable",
+                    "has_fulltext": true,
+                    "public_scan_b": false,
+                    "ia": [
+                        "denverregionalcl0000pier"
+                    ],
+                    "ia_collection": [
+                        "inlibrary",
+                        "internetarchivebooks",
+                        "printdisabled"
+                    ],
+                    "ia_collection_s": "inlibrary;internetarchivebooks;printdisabled",
+                    "lending_edition_s": "OL7772425M",
+                    "lending_identifier_s": "denverregionalcl0000pier",
+                    "printdisabled_s": "OL7772425M",
+                    "cover_edition_key": "OL7772425M",
+                    "cover_i": 13060547,
+                    "publisher": [
+                        "Rand McNally & Company"
+                    ],
+                    "id_librarything": [
+                        "9032702"
+                    ],
+                    "ia_box_id": [
+                        "IA40452109"
+                    ],
+                    "publisher_facet": [
+                        "Rand McNally & Company"
+                    ],
+                    "_version_": 1759784321817772034
+                },
+                {
+                    "key": "/works/OL8808821W",
+                    "type": "work",
+                    "seed": [
+                        "/books/OL8537031M",
+                        "/works/OL8808821W",
+                        "/authors/OL3010394A"
+                    ],
+                    "title": "University of Denver Co 2007",
+                    "title_suggest": "University of Denver Co 2007",
+                    "title_sort": "University of Denver Co 2007",
+                    "edition_count": 1,
+                    "edition_key": [
+                        "OL8537031M"
+                    ],
+                    "publish_date": [
+                        "July 1, 2006"
+                    ],
+                    "publish_year": [
+                        2006
+                    ],
+                    "first_publish_year": 2006,
+                    "number_of_pages_median": 180,
+                    "oclc": [
+                        "150368610"
+                    ],
+                    "isbn": [
+                        "1427401683",
+                        "9781427401687"
+                    ],
+                    "last_modified_i": 1304171421,
+                    "ebook_count_i": 0,
+                    "ebook_access": "no_ebook",
+                    "has_fulltext": false,
+                    "public_scan_b": false,
+                    "cover_edition_key": "OL8537031M",
+                    "cover_i": 1847337,
+                    "publisher": [
+                        "College Prowler"
+                    ],
+                    "language": [
+                        "eng"
+                    ],
+                    "author_key": [
+                        "OL3010394A"
+                    ],
+                    "author_name": [
+                        "College Prowler"
+                    ],
+                    "id_goodreads": [
+                        "2985742"
+                    ],
+                    "publisher_facet": [
+                        "College Prowler"
+                    ],
+                    "_version_": 1759802390192586752,
+                    "author_facet": [
+                        "OL3010394A College Prowler"
+                    ]
+                }
+            ],
+            "num_found": 45,
+            "q": "",
+            "offset": null
+        }
+  recorded_at: Mon, 12 Jun 2023 16:46:07 GMT
+recorded_with: VCR 6.1.0
