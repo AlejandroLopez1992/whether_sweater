@@ -27,7 +27,7 @@ class ErrorSerializer
     {
         errors: [
           {
-            detail: "User creation failed: Parameters must be send in raw JSON payload within body of request"
+            detail: "User creation failed: Parameters must be sent in raw JSON payload within body of request"
           }
         ]
       }

@@ -166,7 +166,75 @@ describe "User API" do
       expect(error_message_response).to eq({
         errors: [
           {
-            detail: "User creation failed: Parameters must be send in raw JSON payload within body of request"
+            detail: "User creation failed: Parameters must be sent in raw JSON payload within body of request"
+          }
+        ]
+      }
+      )
+    end
+  end
+
+  describe "POST /api/v0/sessions" do
+    it "reviews if the user password/email combination is correct and returns json response with api key" do
+      @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      body = {
+        "email": "scoobydoo@yahoo.com",
+        "password": "password"
+      }.to_json
+
+      post "/api/v0/sessions", headers: headers, params: body
+
+      expect(response).to be_successful
+
+      expect(response.status).to eq(200)
+
+      validated_user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(validated_user_response).to have_key(:data)
+      expect(validated_user_response[:data]).to be_an Hash 
+
+      expect(validated_user_response[:data]).to have_key(:type)
+      expect(validated_user_response[:data][:type]).to eq("user")
+
+      expect(validated_user_response[:data]).to have_key(:id)
+      expect(validated_user_response[:data][:id]).to be_an String
+
+      expect(validated_user_response[:data]).to have_key(:attributes)
+      expect(validated_user_response[:data][:attributes]).to be_an Hash
+
+      expect(validated_user_response[:data][:attributes]).to have_key(:email)
+      expect(validated_user_response[:data][:attributes][:email]).to be_an String
+
+      expect(validated_user_response[:data][:attributes]).to have_key(:api_key)
+      expect(validated_user_response[:data][:attributes][:api_key]).to be_an String
+
+      expect(validated_user_response[:data][:attributes]).to_not have_key(:password)
+      expect(validated_user_response[:data][:attributes]).to_not have_key(:password_digest)
+    end
+
+    it "if params are not sent as raw JSON object in body or request/sent as standard params, error is sent" do
+      @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      expect(User.all.count).to eq(0)
+
+      post "/api/v0/users?email=scoobydoo@yahoo.com&password=abc123", headers: headers
+
+      expect(User.all.count).to eq(0)
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(400)
+
+      error_message_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message_response).to eq({
+        errors: [
+          {
+            detail: "User creation failed: Parameters must be sent in raw JSON payload within body of request"
           }
         ]
       }
