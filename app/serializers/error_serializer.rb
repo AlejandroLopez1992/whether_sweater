@@ -12,4 +12,24 @@ class ErrorSerializer
           }
         ]}
   end
+
+  def user_error_messages
+    {
+      errors: [
+        {
+          detail: "User creation failed: #{@error.full_messages.uniq.join(", ")}"
+        }
+      ]
+    }
+  end
+
+  def parameters_not_in_raw_json_body
+    {
+        errors: [
+          {
+            detail: "User creation failed: Parameters must be send in raw JSON payload within body of request"
+          }
+        ]
+      }
+  end
 end
