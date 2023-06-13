@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     namespace :v0 do
       get "/forecast", to: 'forecast#show'
       resources :users, only: %i[create]
+      post "/sessions", to: "users#login"
     end
   end
 end

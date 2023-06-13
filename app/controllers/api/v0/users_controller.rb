@@ -1,8 +1,6 @@
-require 'bcrypt'
 require 'securerandom'
 
 class Api::V0::UsersController < ApplicationController
-  include BCrypt 
   wrap_parameters :user, include: [:email, :password, :password_confirmation]
   rescue_from ActionController::ParameterMissing, with: :not_raw_json
 
@@ -16,15 +14,19 @@ class Api::V0::UsersController < ApplicationController
     end
   end
 
+  def login
+    @user = User.find_by_email(user_params[:email])
+    if @user 
+      if @user.authenticate(user_params[:password])
+        render json: UserSerializer.new(@user), status: 200
+      else
+        render json: ErrorSerializer.new(@user.errors).email_password_combination_incorrect, status: 400
+      end
+    else
+      render json: ErrorSerializer.new(@user).email_password_combination_incorrect, status: 400
+    end
+  end
   private
-    def password
-      @password ||= Password.new(password_hash)
-    end
-
-    def password=(new_password)
-      @password = Password.create(new_password)
-      self.password_hash = @password
-    end
 
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)

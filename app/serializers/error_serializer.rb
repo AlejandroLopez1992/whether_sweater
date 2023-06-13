@@ -27,7 +27,17 @@ class ErrorSerializer
     {
         errors: [
           {
-            detail: "User creation failed: Parameters must be send in raw JSON payload within body of request"
+            detail: "User creation failed: Parameters must be sent in raw JSON payload within body of request"
+          }
+        ]
+      }
+  end
+
+  def email_password_combination_incorrect
+    {
+        errors: [
+          {
+            detail: "Validation failed: Email/password combination incorrect"
           }
         ]
       }
