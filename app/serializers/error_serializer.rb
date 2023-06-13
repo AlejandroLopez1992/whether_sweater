@@ -32,4 +32,14 @@ class ErrorSerializer
         ]
       }
   end
+
+  def email_password_combination_incorrect
+    {
+        errors: [
+          {
+            detail: "Validation failed: Email/password combination incorrect"
+          }
+        ]
+      }
+  end
 end

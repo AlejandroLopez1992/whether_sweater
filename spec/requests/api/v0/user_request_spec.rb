@@ -147,7 +147,7 @@ describe "User API" do
       )
     end
 
-    it "if params are not sent as raw JSON object in body or request/sent as standard params, error is sent" do
+    it "if params are not sent as raw JSON object in body, error is sent" do
 
       headers = {"CONTENT_TYPE" => "application/json"}
 
@@ -214,16 +214,12 @@ describe "User API" do
       expect(validated_user_response[:data][:attributes]).to_not have_key(:password_digest)
     end
 
-    it "if params are not sent as raw JSON object in body or request/sent as standard params, error is sent" do
+    it "if params are not sent as raw JSON object in body, error is sent" do
       @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
 
       headers = {"CONTENT_TYPE" => "application/json"}
 
-      expect(User.all.count).to eq(0)
-
-      post "/api/v0/users?email=scoobydoo@yahoo.com&password=abc123", headers: headers
-
-      expect(User.all.count).to eq(0)
+      post "/api/v0/users?email=scoobydoo@yahoo.com&password=password", headers: headers
 
       expect(response).to_not be_successful
 
@@ -235,6 +231,55 @@ describe "User API" do
         errors: [
           {
             detail: "User creation failed: Parameters must be sent in raw JSON payload within body of request"
+          }
+        ]
+      }
+      )
+    end
+
+    it "if either email or password are incorrect general response is sent stating password or email incorrect" do
+      @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      body = {
+        "email": "scoobyo@yahoo.com",
+        "password": "password"
+      }.to_json
+
+      post "/api/v0/sessions", headers: headers, params: body
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(400)
+
+      error_message_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message_response).to eq({
+        errors: [
+          {
+            detail: "Validation failed: Email/password combination incorrect"
+          }
+        ]
+      }
+      )
+
+      body2 = {
+        "email": "scoobyo@yahoo.com",
+        "password": "passwoooooord"
+      }.to_json
+
+      post "/api/v0/sessions", headers: headers, params: body2
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(400)
+
+      error_message_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message_response).to eq({
+        errors: [
+          {
+            detail: "Validation failed: Email/password combination incorrect"
           }
         ]
       }

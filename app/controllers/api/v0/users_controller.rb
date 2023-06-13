@@ -16,8 +16,14 @@ class Api::V0::UsersController < ApplicationController
 
   def login
     @user = User.find_by_email(user_params[:email])
-    if @user.authenticate(user_params[:password])
-      render json: UserSerializer.new(@user), status: 200
+    if @user 
+      if @user.authenticate(user_params[:password])
+        render json: UserSerializer.new(@user), status: 200
+      else
+        render json: ErrorSerializer.new(@user.errors).email_password_combination_incorrect, status: 400
+      end
+    else
+      render json: ErrorSerializer.new(@user).email_password_combination_incorrect, status: 400
     end
   end
   private
