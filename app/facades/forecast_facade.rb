@@ -11,12 +11,10 @@ class ForecastFacade
     @lat = response[:results].first[:locations].first[:latLng][:lat]
     @lng = response[:results].first[:locations].first[:latLng][:lng]
     formatted_location = @lat.to_s + ", " + @lng.to_s
-    call_weather_api(formatted_location, 5)
   end
 
   def call_weather_api(location, days)
     response = WeatherapiService.new(location, days).forecast
-    create_forecast(response)
   end
 
   def create_forecast(weather_data)
@@ -25,5 +23,11 @@ class ForecastFacade
     forecast.organize_daily_weather(weather_data)
     forecast.organize_hourly_weather(weather_data)
     forecast
+  end
+
+  def forecast_five_days
+    formatted_location = call_mapquest
+    weather_data = call_weather_api(formatted_location, 5)
+    create_forecast(weather_data)
   end
 end
