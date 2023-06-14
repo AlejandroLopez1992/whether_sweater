@@ -33,6 +33,6 @@ class Api::V0::UsersController < ApplicationController
     end
 
     def not_raw_json(error)
-      render json: ErrorSerializer.new(error).parameters_not_in_raw_json_body_road_trip, status: 400
+      render json: ErrorSerializer.new(error).parameters_not_in_raw_json_body, status: 400
     end
 end
