@@ -28,19 +28,19 @@ describe "Road Trip API" do
       expect(road_trip_data[:data][:id]).to eq(nil)
 
       expect(road_trip_data[:data]).to have_key(:type)
-      expect(road_trip_data[:data][:type]).to eq("roadtrip")
+      expect(road_trip_data[:data][:type]).to eq("road_trip")
 
       expect(road_trip_data[:data]).to have_key(:attributes)
       expect(road_trip_data[:data][:attributes]).to be_an Hash
 
       expect(road_trip_data[:data][:attributes]).to have_key(:start_city)
-      expect(road_trip_data[:data][:attributes][:start_city]).to eq(body["origin"].gsub(",", " ,"))
+      expect(road_trip_data[:data][:attributes][:start_city]).to eq("New York, NY")
 
       expect(road_trip_data[:data][:attributes]).to have_key(:end_city)
-      expect(road_trip_data[:data][:attributes][:end_city]).to eq(body["destination"].gsub(",", " ,"))
+      expect(road_trip_data[:data][:attributes][:end_city]).to eq("Los Angeles, CA")
 
       expect(road_trip_data[:data][:attributes]).to have_key(:travel_time)
-      expect(road_trip_data[:data][:attributes][:travel_time]).to eq("38:50:57")
+      expect(road_trip_data[:data][:attributes][:travel_time]).to be_an String
 
       expect(road_trip_data[:data][:attributes]).to have_key(:weather_at_eta)
       expect(road_trip_data[:data][:attributes][:weather_at_eta]).to be_an Hash

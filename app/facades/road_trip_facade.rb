@@ -1,3 +1,5 @@
+require 'time'
+
 class RoadTripFacade
 
   def initialize(destination, origin, lat=nil, lng=nil)
@@ -8,15 +10,17 @@ class RoadTripFacade
   end
 
   def create_road_trip
-    road_trip = RoadTrip.new 
-    road_trip.start_city = @origin.gsub(",", ", ")
-    road_trip.end_city = @origin.gsub(",", ", ")
+    road_trip = RoadTrip.new(@origin, @destination) 
     directions_object = call_mapquest_for_travel_time
     road_trip.travel_time = directions_object[:route][:formattedTime]
+    travel_time_in_seconds = directions_object[:route][:time]
     formatted_location = call_mapquest_for_formatted_location
     weather_data = call_weather_api(formatted_location, 14)
-    forecast = create_forecast(weather_data)
-    
+    date_time_of_arrival = determine_arrival_time(weather_data[:location][:localtime], travel_time_in_seconds)
+    day_of_arrival = weather_data[:forecast][:forecastday].find { |day| day[:date] == date_time_of_arrival[:date] }
+    hour_of_arrival = day_of_arrival[:hour].find { |hour| hour[:time] == date_time_of_arrival[:hour] }
+    road_trip.weather_data(hour_of_arrival)
+    road_trip
   end
 
   def call_mapquest_for_travel_time
@@ -30,15 +34,16 @@ class RoadTripFacade
     formatted_location = @lat.to_s + ", " + @lng.to_s
   end
 
-  def create_forecast(weather_data)
-    forecast = Forecast.new
-    forecast.organize_current_weather(weather_data)
-    forecast.organize_daily_weather(weather_data)
-    forecast.organize_hourly_weather(weather_data)
-    forecast
-  end
-
   def call_weather_api(location, days)
     response = WeatherapiService.new(location, days).forecast
+  end
+
+  def determine_arrival_time(destination_time, travel_time)
+    time = Time.parse(destination_time)
+    arrival_time = time + travel_time
+    formatted_time =  Hash.new
+    formatted_time[:date] =  arrival_time.strftime("%Y-%m-%d")
+    formatted_time[:hour] =  arrival_time.strftime("%Y-%m-%d %H:00")
+    formatted_time
   end
 end
