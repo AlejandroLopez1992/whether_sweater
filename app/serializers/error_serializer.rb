@@ -42,4 +42,13 @@ class ErrorSerializer
         ]
       }
   end
+
+  def api_key_error
+    {
+        errors: [
+          {
+            detail: "Request must contain api_key, if api_key was provided it may be incorrect",
+          }
+        ]}
+  end
 end

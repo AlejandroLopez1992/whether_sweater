@@ -197,7 +197,7 @@ describe "Forecast API" do
       end
     end
 
-    it 'if location params are not passed in a error responce is sent with error code 400' do
+    it 'if location params are not passed in a error response is sent with error code 400' do
      
       headers = {"CONTENT_TYPE" => "application/json"}
 

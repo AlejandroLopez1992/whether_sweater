@@ -54,5 +54,56 @@ describe "Road Trip API" do
       expect(road_trip_data[:data][:attributes][:weather_at_eta]).to have_key(:condition)
       expect(road_trip_data[:data][:attributes][:weather_at_eta][:condition]).to be_an String
     end
+
+    it "if api_key is not passed in or is incorrect, error with code 401 is sent" do
+      @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      body = {
+        "origin": "New York,NY",
+        "destination": "Los Angeles,CA"
+      }.to_json
+
+      post "/api/v0/road_trip", headers: headers, params: body
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(401)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message).to eq({
+        errors: [
+          {
+            detail: "Request must contain api_key, if api_key was provided it may be incorrect",
+          }
+        ]}
+      )
+
+      headers2 = {"CONTENT_TYPE" => "application/json"}
+
+      body2 = {
+        "origin": "New York,NY",
+        "destination": "Los Angeles,CA",
+        "api_key": "2348455555555555u3"
+      }.to_json
+
+      post "/api/v0/road_trip", headers: headers2, params: body2
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(401)
+
+      other_error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(other_error_message).to eq({
+        errors: [
+          {
+            detail: "Request must contain api_key, if api_key was provided it may be incorrect",
+          }
+        ]}
+      )
+    end
   end
 end
