@@ -237,13 +237,13 @@ describe "User API" do
       )
     end
 
-    it "if either email or password are incorrect general response is sent stating password or email incorrect" do
+    it "if password is incorrect general response is sent stating password or email incorrect" do
       @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
       headers = {"CONTENT_TYPE" => "application/json"}
 
       body = {
-        "email": "scoobyo@yahoo.com",
-        "password": "password"
+        "email": "scoobydoo@yahoo.com",
+        "password": "passwoooooord"
       }.to_json
 
       post "/api/v0/sessions", headers: headers, params: body
@@ -262,13 +262,19 @@ describe "User API" do
         ]
       }
       )
+    end
 
-      body2 = {
+    it "if email is incorrect, genereal response is sent stating password or email incorrect" do
+      @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      body = {
         "email": "scoobyo@yahoo.com",
-        "password": "passwoooooord"
+        "password": "password"
       }.to_json
 
-      post "/api/v0/sessions", headers: headers, params: body2
+      post "/api/v0/sessions", headers: headers, params: body
 
       expect(response).to_not be_successful
 
