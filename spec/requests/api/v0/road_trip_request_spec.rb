@@ -105,5 +105,58 @@ describe "Road Trip API" do
         ]}
       )
     end
+
+    it "if origin or destination fields are missing, errors are sent with information on missing fields" do
+      @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      body = {
+        "origin": "",
+        "destination": "",
+        "api_key": "2348u3"
+      }.to_json
+
+     
+
+      post "/api/v0/road_trip", headers: headers, params: body
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(400)
+
+      error_message_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message_response).to eq({
+        errors: [
+          {
+            detail: "Road Trip creation failed: Origin and Destination must be passed through in JSON payload through body of request"
+          }
+        ]
+      }
+      )
+    end
+
+    it "if params are not sent as raw JSON object in body, error is sent" do
+      @user = User.create!(email: "scoobydoo@yahoo.com", password: "password", password_confirmation: "password", api_key: "2348u3")
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      post "/api/v0/road_trip?origin=Denver,CO&destination=New York, NY&api_key=2348u3", headers: headers
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(400)
+
+      error_message_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message_response).to eq({
+        errors: [
+          {
+            detail: "Road Trip creation failed: Parameters must be sent in raw JSON payload within body of request"
+          }
+        ]
+      }
+      )
+    end
   end
 end
