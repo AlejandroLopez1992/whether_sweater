@@ -12,15 +12,20 @@ class RoadTripFacade
   def create_road_trip
     road_trip = RoadTrip.new(@origin, @destination) 
     directions_object = call_mapquest_for_travel_time
-    road_trip.travel_time = directions_object[:route][:formattedTime]
-    travel_time_in_seconds = directions_object[:route][:time]
-    formatted_location = call_mapquest_for_formatted_location
-    weather_data = call_weather_api(formatted_location, 14)
-    date_time_of_arrival = determine_arrival_time(weather_data[:location][:localtime], travel_time_in_seconds)
-    day_of_arrival = weather_data[:forecast][:forecastday].find { |day| day[:date] == date_time_of_arrival[:date] }
-    hour_of_arrival = day_of_arrival[:hour].find { |hour| hour[:time] == date_time_of_arrival[:hour] }
-    road_trip.weather_data(hour_of_arrival)
-    road_trip
+    if directions_object[:route].has_key?(:routeError)
+      road_trip.travel_time = "impossible"
+      road_trip
+    else
+      road_trip.travel_time = directions_object[:route][:formattedTime]
+      travel_time_in_seconds = directions_object[:route][:time]
+      formatted_location = call_mapquest_for_formatted_location
+      weather_data = call_weather_api(formatted_location, 14)
+      date_time_of_arrival = determine_arrival_time(weather_data[:location][:localtime], travel_time_in_seconds)
+      day_of_arrival = weather_data[:forecast][:forecastday].find { |day| day[:date] == date_time_of_arrival[:date] }
+      hour_of_arrival = day_of_arrival[:hour].find { |hour| hour[:time] == date_time_of_arrival[:hour] }
+      road_trip.weather_data(hour_of_arrival)
+      road_trip
+    end
   end
 
   def call_mapquest_for_travel_time
